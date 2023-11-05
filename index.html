@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Subtitle Converter</title>
+  </head>
+  <body>
+    <video controls width="640" height="360">
+      <source
+        src="https://polydub-assets.s3.us-east-2.amazonaws.com/6546a766df9ba4caf23c727a/yield-ad-podcast.mov?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEMaCXVzLWVhc3QtMSJGMEQCIGllQj9qaxDiSQ4rME2ZMF0BQjLEw5QpDqYUDEZPDmc6AiBUyTZaugrjAGNcDBTAl9BsStJwgGjBbNu4KrGI7AHb0SrkAgh8EAAaDDE5ODM4MDE1ODAxMiIMzHtBAto%2FyjfHpPvdKsECz6DksVMTpXDIY9%2BbeRAMFtRASHtMr5fo8S2lYNc53fM9P7vAM%2FybvJhzUKXjhwpJCw%2B8JK6pRlM3gyAh1dGwyF9eqaTJCnnq2oWlAm88lFaNCA3oVg8LtCg689wTqOC4ZFx4MY0%2FO3v6O5hAP2pZJeA5Ig7x0YYnQuus3Ko7ca0mQ8BteiFPmoKKieZpGWAI7LXGSPM8MSHTHa5orh8b8rtyd%2BWOlUYHZT15VqfUqeQx7gsUeIJWkwFQjIkY5eGfgIkKjXoXt9IhHtY38snM35O25LwtFErE7pITl%2Bk1dR9lsEu30jqCjmMHo09s2krc%2BrsR2XP%2FmudY4UWVNFqefuxtz%2FxqUkChjk1EoMI6W7ArH97%2Bgb0%2BJy3m3jlta3CNzP0uhwcYkYEzJfMxFmhoBEqkygAv8FrbON5VqeJI1DcRMPrKn6oGOrQCOFlxhNhh5uOl8H%2F5COOO7NR2RSPLEAlcNYspRejAuWT3xF1gvZTKRUWskEXZjXHIy3Ojuwvq8RvvmoObyhLfHFzxKI%2Br3gu2beAiEkia9COW0XtnfTB9ViCJm9QP2TcDyv9SDZub06jcN0I6%2FFvePsdeAbxzM2B%2BYOSQeoyKXX5DBIwOKCgzc0HgjAEeb70F04%2Fq0PYk5WVzOyMIu4JFwivNjFzO6JKGih%2FXrP3lVkMyoDHLzr8C7d%2BSBOfR1Q0od3fzmRWnmfz0iZEoAC7o1SS%2BLtB24xKloauwt5N6q3qx%2BPtsd14%2BPKoYn%2BFY2A33nF10PBAA%2Bu5x7Kx2T6IOSwVIur44aRN6Xc2gYBWZHCuQz66T62UsVT1rnlDiJNI5vwMweWS9BGxb1T3b78CnCnjPepU%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20231105T185810Z&X-Amz-SignedHeaders=host&X-Amz-Expires=36000&X-Amz-Credential=ASIAS4MDA7Q6HTYLU2L2%2F20231105%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Signature=fce6dc956e3f3a81136861e06615d501eea12a48556f4e8c430e666a47370b20"
+        type="video/mp4"
+      />
+    </video>
+    <script>
+      function loadSubtitles() {
+        // as a CORS issue workaround, I'm using https://cors-anywhere.herokuapp.com
+        const srtURL = `https://cors-anywhere.herokuapp.com/https://polydub-assets.s3.us-east-2.amazonaws.com/6546a766df9ba4caf23c727a/yield-ad-subtitles.srt?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEMaCXVzLWVhc3QtMSJGMEQCIGllQj9qaxDiSQ4rME2ZMF0BQjLEw5QpDqYUDEZPDmc6AiBUyTZaugrjAGNcDBTAl9BsStJwgGjBbNu4KrGI7AHb0SrkAgh8EAAaDDE5ODM4MDE1ODAxMiIMzHtBAto%2FyjfHpPvdKsECz6DksVMTpXDIY9%2BbeRAMFtRASHtMr5fo8S2lYNc53fM9P7vAM%2FybvJhzUKXjhwpJCw%2B8JK6pRlM3gyAh1dGwyF9eqaTJCnnq2oWlAm88lFaNCA3oVg8LtCg689wTqOC4ZFx4MY0%2FO3v6O5hAP2pZJeA5Ig7x0YYnQuus3Ko7ca0mQ8BteiFPmoKKieZpGWAI7LXGSPM8MSHTHa5orh8b8rtyd%2BWOlUYHZT15VqfUqeQx7gsUeIJWkwFQjIkY5eGfgIkKjXoXt9IhHtY38snM35O25LwtFErE7pITl%2Bk1dR9lsEu30jqCjmMHo09s2krc%2BrsR2XP%2FmudY4UWVNFqefuxtz%2FxqUkChjk1EoMI6W7ArH97%2Bgb0%2BJy3m3jlta3CNzP0uhwcYkYEzJfMxFmhoBEqkygAv8FrbON5VqeJI1DcRMPrKn6oGOrQCOFlxhNhh5uOl8H%2F5COOO7NR2RSPLEAlcNYspRejAuWT3xF1gvZTKRUWskEXZjXHIy3Ojuwvq8RvvmoObyhLfHFzxKI%2Br3gu2beAiEkia9COW0XtnfTB9ViCJm9QP2TcDyv9SDZub06jcN0I6%2FFvePsdeAbxzM2B%2BYOSQeoyKXX5DBIwOKCgzc0HgjAEeb70F04%2Fq0PYk5WVzOyMIu4JFwivNjFzO6JKGih%2FXrP3lVkMyoDHLzr8C7d%2BSBOfR1Q0od3fzmRWnmfz0iZEoAC7o1SS%2BLtB24xKloauwt5N6q3qx%2BPtsd14%2BPKoYn%2BFY2A33nF10PBAA%2Bu5x7Kx2T6IOSwVIur44aRN6Xc2gYBWZHCuQz66T62UsVT1rnlDiJNI5vwMweWS9BGxb1T3b78CnCnjPepU%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20231105T185854Z&X-Amz-SignedHeaders=host&X-Amz-Expires=36000&X-Amz-Credential=ASIAS4MDA7Q6HTYLU2L2%2F20231105%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Signature=05198f332b73c1f653d13b418dc6bb55bf2d533182c39fff207c6bab2f19ead9`;
+
+        // Fetch the SRT file from the URL
+        fetch(srtURL)
+          .then((response) => response.text())
+          .then((srtText) => {
+            console.log("🚀 ~ file: index.html:39 ~ .then ~ srtText:", srtText);
+            const vttText = srt2webvtt(srtText);
+            console.log("🚀 ~ file: index.html:43 ~ .then ~ vttText:", vttText);
+
+            const video = document.querySelector("video");
+
+            const vttBlob = new Blob([vttText], { type: "text/vtt" });
+
+            const track = document.createElement("track");
+            Object.assign(track, {
+              label: "English",
+              default: true,
+              src: window.URL.createObjectURL(vttBlob),
+            });
+            video.appendChild(track);
+          })
+          .catch((error) => {
+            console.error("Error fetching or converting subtitles:", error);
+          });
+      }
+      loadSubtitles();
+
+      function srt2webvtt(data) {
+        // remove dos newlines
+        var srt = data.replace(/\r+/g, "");
+        // trim white space start and end
+        srt = srt.replace(/^\s+|\s+$/g, "");
+
+        // get cues
+        var cuelist = srt.split("\n\n");
+        var result = "";
+
+        if (cuelist.length > 0) {
+          result += "WEBVTT\n\n";
+          for (var i = 0; i < cuelist.length; i = i + 1) {
+            result += convertSrtCue(cuelist[i]);
+          }
+        }
+
+        return result;
+      }
+
+      function convertSrtCue(caption) {
+        // remove all html tags for security reasons
+        //srt = srt.replace(/<[a-zA-Z\/][^>]*>/g, '');
+
+        var cue = "";
+        var s = caption.split(/\n/);
+
+        // concatenate muilt-line string separated in array into one
+        while (s.length > 3) {
+          for (var i = 3; i < s.length; i++) {
+            s[2] += "\n" + s[i];
+          }
+          s.splice(3, s.length - 3);
+        }
+
+        var line = 0;
+
+        // detect identifier
+        if (!s[0].match(/\d+:\d+:\d+/) && s[1].match(/\d+:\d+:\d+/)) {
+          cue += s[0].match(/\w+/) + "\n";
+          line += 1;
+        }
+
+        // get time strings
+        if (s[line].match(/\d+:\d+:\d+/)) {
+          // convert time string
+          var m = s[1].match(/(\d+):(\d+):(\d+)(?:,(\d+))?\s*--?>\s*(\d+):(\d+):(\d+)(?:,(\d+))?/);
+          if (m) {
+            cue +=
+              m[1] +
+              ":" +
+              m[2] +
+              ":" +
+              m[3] +
+              "." +
+              m[4] +
+              " --> " +
+              m[5] +
+              ":" +
+              m[6] +
+              ":" +
+              m[7] +
+              "." +
+              m[8] +
+              "\n";
+            line += 1;
+          } else {
+            // Unrecognized timestring
+            return "";
+          }
+        } else {
+          // file format error or comment lines
+          return "";
+        }
+
+        // get cue text
+        if (s[line]) {
+          cue += s[line] + "\n\n";
+        }
+
+        return cue;
+      }
+    </script>
+  </body>
+</html>
